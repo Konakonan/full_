@@ -12,18 +12,17 @@ services:
     restart: always
     #のちにenvファイルから読み込むようにする
     environment:
-      MYSQL_ROOT_PASSWORD: root2
-      MYSQL_DATABASE: mydb_202509
-      MYSQL_USER: user1
-      MYSQL_PASSWORD: user1pass
-      TZ: Asia/TOKYO
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
     ports:
-      - "3307:3306" #3007につなぐ。ホストの 3307 でアクセスすると、コンテナの 3306（MySQL 標準）に接続される
-    volumes:
-      - type: bind
-        source: ./data
-        target: /var/lib/mysql
-
+      - "3307:3306" #3007につなぐ。ホストの 3307 でアクセスすると、コンテナの 3306（MySQL標準）に接続される
+    
+    #データ永続化、よく分からん。永続化コメアウトで接続確認ok
+    #volumes:
+     # - ./data:/var/lib/mysql/data
 
 
 #ボリューム削除コマンド
@@ -34,3 +33,7 @@ services:
 # docker-compose up -d
 #ログ確認
 # docker logs -f app-db
+#接続コマンド
+# mysql -h 127.0.0.1 -P 3307 -u root -p
+#MySQL終了
+#exit
