@@ -1,0 +1,27 @@
+
+#環境
+FROM node:18
+
+#app直下、以降
+WORKDIR /app
+
+#yarn install の前に依存関係ファイルだけコピーする
+#ここがエラーになってる。
+COPY package.json yarn.lock* ./
+
+#package.jsonに従って依存関係をインストール
+RUN yarn install
+
+
+#ソースコードをコンテナにコピー
+#ビルドコンテキストの全ファイル
+COPY . . 
+
+#コンテナ起動時にNext.js開発サーバーを起動
+#yarn dev で 3000 番ポートに開発用サーバーが立ち上がる
+#コンテナ起動時に実行されるコマンド
+CMD ["yarn","dev"]
+
+
+#実行コマンド
+# docker compose build

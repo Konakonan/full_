@@ -2,6 +2,7 @@ version: '3.9'
 
 #MySQl
 services:
+  #データベース
   app-db:
     image: mysql:8
     container_name: docker-mysql
@@ -20,19 +21,50 @@ services:
     ports:
       - "3307:3306" #3007につなぐ。ホストの 3307 でアクセスすると、コンテナの 3306（MySQL標準）に接続される
     
-    #データ永続化、よく分からん。永続化コメアウトで接続確認ok
+    #データ永続化、よく分からん、全く繋がらん。永続化コメアウトで接続確認ok
     #volumes:
      # - ./data:/var/lib/mysql/data
+
+    #ネットワーク名前解決
+    #networks:
+    #  - app-network
+
+  #frontend
+  frontend:
+    #ビルドファイルがある場所(?)
+    build: ./app/frontend
+    container_name: docker-frontend
+    #ホスト:コンテナ
+    ports:
+      - "3000:3000"
+    #frontendの変更を即時にホスト/appに反映
+    volumes:
+      - ./app/frontend:/app
+    #MySQLが先に起動することを保証する(?)
+    depends_on:
+      - app-db
+
+    stdin_open: true
+    tty: true
+    #ネットワーク名前解決
+    #networks:
+    #  - app-network
 
 
 #ボリューム削除コマンド
 # docker-compose down -v
+# docker-compose up --build
+# docker compose build
 #停止
 # docker-compose- stop/start
+#ステータス確認
+# docker ps -a
 #コンテナ再起動
 # docker-compose up -d
 #ログ確認
 # docker logs -f app-db
+#削除
+# docker rm -f docker-frontend
 #接続コマンド
 # mysql -h 127.0.0.1 -P 3307 -u root -p
 #MySQL終了
