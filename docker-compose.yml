@@ -1,0 +1,36 @@
+version: '3.9'
+
+#MySQl
+services:
+  app-db:
+    image: mysql:8
+    container_name: docker-mysql
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+      - --collation-server=utf8mb4_0900_bin
+      - --transaction-isolation=READ-COMMITTED
+    restart: always
+    #のちにenvファイルから読み込むようにする
+    environment:
+      MYSQL_ROOT_PASSWORD: root2
+      MYSQL_DATABASE: mydb_202509
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user1pass
+      TZ: Asia/TOKYO
+    ports:
+      - "3307:3306" #3007につなぐ。ホストの 3307 でアクセスすると、コンテナの 3306（MySQL 標準）に接続される
+    volumes:
+      - type: bind
+        source: ./data
+        target: /var/lib/mysql
+
+
+
+#ボリューム削除コマンド
+# docker-compose down -v
+#停止
+# docker-compose- stop/start
+#コンテナ再起動
+# docker-compose up -d
+#ログ確認
+# docker logs -f app-db
