@@ -6,7 +6,7 @@ services:
   app-db:
     image: mysql:8
     container_name: docker-mysql
-    command: 
+    command:
       - --default-authentication-plugin=mysql_native_password
       - --collation-server=utf8mb4_0900_bin
       - --transaction-isolation=READ-COMMITTED
@@ -20,7 +20,7 @@ services:
       TZ: ${TZ}
     ports:
       - "3307:3306" #3007につなぐ。ホストの 3307 でアクセスすると、コンテナの 3306（MySQL標準）に接続される
-    
+
     #データ永続化、よく分からん、全く繋がらん。永続化コメアウトで接続確認ok
     #volumes:
      # - ./data:/var/lib/mysql/data
@@ -70,3 +70,7 @@ services:
 #MySQL終了
 #exit
 # control+C
+
+
+#next.jp起動
+#yarn dev
