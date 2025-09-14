@@ -25,3 +25,8 @@ CMD ["yarn","dev"]
 
 #実行コマンド
 # docker compose build
+
+ 
+#docker run -it --rm -v $(pwd)/frontend:/app -w /app node:18 bash
+#??????
+#yarn create next-app . --typescript --eslint
