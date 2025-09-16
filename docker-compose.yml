@@ -44,15 +44,17 @@ services:
     depends_on:
       - app-db
 
+    #シェルの設定
     stdin_open: true
     tty: true
     #ネットワーク名前解決
     #networks:
     #  - app-network
 
-
+#DockerDesktopを開く！
 #ボリューム削除コマンド
 # docker-compose down -v
+#ビルド
 # docker-compose up --build
 # docker compose build
 #停止
@@ -65,6 +67,8 @@ services:
 # docker logs -f app-db
 #削除
 # docker rm -f docker-frontend
+#コンテナへ入るコマンド
+# docker-compose exec frontend sh
 #接続コマンド
 # mysql -h 127.0.0.1 -P 3307 -u root -p
 #MySQL終了
@@ -72,5 +76,7 @@ services:
 # control+C
 
 
-#next.jp起動
+#next.js起動
 #yarn dev
+#または,入って実行
+# docker-compose exec frontend yarn dev
