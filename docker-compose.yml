@@ -50,6 +50,16 @@ services:
     #ネットワーク名前解決
     #networks:
     #  - app-network
+  
+  #backend
+  backend: 
+    bilud: ./app/backend
+    container_name: docker-backend
+    port: 
+      - "8000:8000"
+     depends_on:
+      - app-db
+
 
 #DockerDesktopを開く！
 #ボリューム削除コマンド
