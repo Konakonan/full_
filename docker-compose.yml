@@ -71,9 +71,12 @@ services:
 # docker-compose exec frontend sh
 #接続コマンド
 # mysql -h 127.0.0.1 -P 3307 -u root -p
+#コンテナ内にインストールされているかの確認
+# docker-compose exec backend pip freeze | grep Django
 #MySQL終了
 #exit
 # control+C
+
 
 
 #next.js起動
